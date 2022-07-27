@@ -13,9 +13,6 @@ from forms import *
 from functools import wraps
 import bleach
 import os
-from dotenv import load_dotenv
-
-load_dotenv(r"C:\Users\nw_na\Desktop\Python course\Enviromental Variables\.env")
 
 
 app = Flask(__name__)

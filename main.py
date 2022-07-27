@@ -15,8 +15,6 @@ import bleach
 import os
 from dotenv import load_dotenv
 
-#gunicorn V20.1.0
-
 load_dotenv(r"C:\Users\nw_na\Desktop\Python course\Enviromental Variables\.env")
 
 
@@ -257,4 +255,4 @@ def delete_comment(post_id, comment_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

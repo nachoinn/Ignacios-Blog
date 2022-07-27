@@ -15,6 +15,8 @@ import bleach
 import os
 from dotenv import load_dotenv
 
+#gunicorn V20.1.0
+
 load_dotenv(r"C:\Users\nw_na\Desktop\Python course\Enviromental Variables\.env")
 
 

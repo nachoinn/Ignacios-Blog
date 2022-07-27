@@ -13,11 +13,13 @@ from forms import *
 from functools import wraps
 import bleach
 import os
+from dotenv import load_dotenv
 
+load_dotenv(r"C:\Users\nw_na\Desktop\Python course\Enviromental Variables\.env")
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['SECRET_KEY'] = os.getenv("Secret_Key")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 

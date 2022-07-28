@@ -13,12 +13,17 @@ from forms import *
 from functools import wraps
 import bleach
 import os
+import re
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("Secret_Key")
 ckeditor = CKEditor(app)
 Bootstrap(app)
+
+uri = os.getenv("DATABASE_URL")
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
 
 ##CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL",  "sqlite:///blog.db")

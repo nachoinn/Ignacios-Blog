@@ -21,12 +21,12 @@ app.config['SECRET_KEY'] = os.getenv("Secret_Key")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
-uri = os.getenv("DATABASE_URL")
+uri = os.getenv("DATABASE_URL", "sqlite:///blog.db")
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL",  "sqlite:///blog.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 

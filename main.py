@@ -16,18 +16,18 @@ import os
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv("Secret_Key")
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
 uri = os.getenv("DATABASE_URL")
 if uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://")
+    uri = uri.replace("postgres://", "postgresql://", 1)
 
 print(uri)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = uri
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -84,6 +84,7 @@ class Comment(db.Model):
     parent_post = relationship("BlogPost", back_populates="comments")
 
     text = db.Column(db.Text, nullable=False)
+
 
 
 def admin_only(f):
@@ -258,5 +259,4 @@ def delete_comment(post_id, comment_id):
 
 
 if __name__ == "__main__":
-    db.create_all()
     app.run()

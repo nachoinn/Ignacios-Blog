@@ -20,53 +20,54 @@
 </header>
 
 <!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                {{ post.body|safe }}
-                <hr>
+<div class="container">
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    {{ post.body|safe }}
+                    <hr>
 
-                <div class="clearfix">
-                    {% if current_user.id == 1 %}
-                    <a class="btn btn-primary float-right" href="{{url_for('edit_post', post_id=post.id)}}">Edit
-                        Post</a>
-                    {% endif %}
-                </div>
+                    <div class="clearfix">
+                        {% if current_user.id == 1 %}
+                        <a class="btn btn-primary float-right" href="{{url_for('edit_post', post_id=post.id)}}">Edit
+                            Post</a>
+                        {% endif %}
+                    </div>
 
 
-                <!--           Comments Area -->
-                <div class="col-lg-8 col-md-10 mx-auto comment">
-                    <ul class="commentList" id="comments">
-                        {% for comment in post.comments %}
-                        <li>
-                            <div class="commenterImage">
-                                <img src="{{ comment.comment_author.email | gravatar }}"/>
-                            </div>
-                            <div class="commentText">
-                                <p>{{comment.text|safe}}</p>
-                                <span class="date sub-text">{{comment.comment_author.name}}</span>
-                                {% if comment.author_id == current_user.id or current_user.id ==1: %}
-                                <span>
+                    <!--           Comments Area -->
+                    <div class="col-lg-8 col-md-10 mx-auto comment">
+                        <ul class="commentList" id="comments">
+                            {% for comment in post.comments %}
+                            <li>
+                                <div class="commenterImage">
+                                    <img src="{{ comment.comment_author.email | gravatar }}"/>
+                                </div>
+                                <div class="commentText">
+                                    <p>{{comment.text|safe}}</p>
+                                    <span class="date sub-text">{{comment.comment_author.name}}</span>
+                                    {% if comment.author_id == current_user.id or current_user.id ==1: %}
+                                    <span>
                                     <a href="{{url_for('delete_comment', post_id=post.id, comment_id=comment.id)}}">✘</a>
                                 </span>
-                                {% endif %}
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    <div>
-                        {{ ckeditor.load(pkg_type="basic") }}
-                        {{ ckeditor.config(name='body') }}
-                        {{ wtf.quick_form(comment_form, novalidate=True, button_map={"submit": "primary"}) }}
+                                    {% endif %}
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <div>
+                            {{ ckeditor.load(pkg_type="basic") }}
+                            {{ ckeditor.config(name='body') }}
+                            {{ wtf.quick_form(comment_form, novalidate=True, button_map={"submit": "primary"}) }}
+                        </div>
                     </div>
+
+
                 </div>
-
-
             </div>
         </div>
-    </div>
-</article>
-
+    </article>
+</div>
 <hr>
 {% include "footer.html" %}

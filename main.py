@@ -108,6 +108,24 @@ def strip_invalid_html(content):
 
     return cleaned
 
+def strip_invalid_html_comment(content):
+    allowed_tags = ['a', 'abbr', 'acronym', 'address', 'b', 'br', 'div', 'dl', 'dt',
+                    'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i',
+                    'li', 'ol', 'p', 'pre', 'q', 's', 'small', 'strike',
+                    'span', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th',
+                    'thead', 'tr', 'tt', 'u', 'ul']
+
+    allowed_attrs = {
+        'a': ['href', 'target', 'title']
+    }
+
+    cleaned = bleach.clean(content,
+                           tags=allowed_tags,
+                           attributes=allowed_attrs,
+                           strip=True)
+
+    return cleaned
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -170,7 +188,7 @@ def show_post(post_id):
     if comment_form.validate_on_submit():
         if current_user.is_authenticated:
             comment = Comment(
-                text=strip_invalid_html(comment_form.text.data),
+                text=strip_invalid_html_comment(comment_form.text.data),
                 comment_author=current_user,
                 post_id=post_id
             )

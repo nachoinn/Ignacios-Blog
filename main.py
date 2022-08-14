@@ -98,7 +98,7 @@ def strip_invalid_html(content):
 
     allowed_attrs = {
         'a': ['href', 'target', 'title'],
-        'img': ['style', 'src', 'alt', 'width', 'height'],
+        'img': ['style', 'src', 'alt', 'width', 'height']
     }
 
     cleaned = bleach.clean(content,

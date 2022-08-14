@@ -7,13 +7,11 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CreatePostForm
 from flask_gravatar import Gravatar
 from forms import *
 from functools import wraps
 import bleach
 import os
-import re
 
 
 app = Flask(__name__)
@@ -100,7 +98,7 @@ def strip_invalid_html(content):
 
     allowed_attrs = {
         'a': ['href', 'target', 'title'],
-        'img': ['src', 'alt', 'width', 'height'],
+        'img': ['style', 'src', 'alt', 'width', 'height'],
     }
 
     cleaned = bleach.clean(content,
